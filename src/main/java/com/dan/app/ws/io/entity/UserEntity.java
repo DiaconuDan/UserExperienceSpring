@@ -1,19 +1,37 @@
-package com.dan.app.ws.shared.dto;
+package com.dan.app.ws.io.entity;
 
 import java.io.Serializable;
 
-public class UserDto implements Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-	private static final long serialVersionUID = -5787750961578360921L;
+@Entity(name = "users")
+public class UserEntity implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue
 	private long id;
+
+	@Column(nullable = false)
 	private String userId;
+
+	@Column(nullable = false, length = 50)
 	private String firstName;
+	@Column(nullable = false, length = 50)
 	private String lastName;
+	@Column(nullable = false, length = 120)
 	private String email;
-	private String password;
+	@Column(nullable = false)
 	private String encryptedPassword;
+	
 	private String emailVerificationToken;
-	private Boolean emailVerificationStatus;
+
+	@Column( nullable = false, columnDefinition = "boolean default false" )
+	private Boolean emailVerificationStatus = false;
 
 	public long getId() {
 		return id;
@@ -53,14 +71,6 @@ public class UserDto implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getEncryptedPassword() {
